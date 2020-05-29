@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 
 import formatValue from '../../utils/formatValue';
 import { useCart } from '../../hooks/cart';
@@ -35,14 +35,32 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
-      // TODO
+      /**
+       * loading data from api
+       * all the products available to sell
+       */
+      const { data } = await api.get('/products');
+
+      /**
+       * Saving all the products on state
+       */
+      setProducts(data);
     }
 
+    /**
+     * Loading the products only one time,
+     * when the app open
+     */
     loadProducts();
   }, []);
 
   function handleAddToCart(item: Product): void {
-    // TODO
+    /**
+     * function available on the cart hook.
+     * responsible for add an item to the cart.
+     * All the verifications will be made on the hook
+     */
+    addToCart(item);
   }
 
   return (
